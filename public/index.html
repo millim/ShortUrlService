@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>demo</title>
+  <meta charset="utf-8">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+ <h3>项目说明</h3>
+ <ul>
+   <li>本项目短链接转换规则为：使用字符1～9a～v，限制0～8位数，不区分大小写，默认生成为有序（：</li>
+   <li>没有采用MD5等方式对短链作加密处理，因此有序方式将会以00001，000002生产</li>
+   <li>html页面只有此一个，其他均为http接口形式，为了使用方便，除了生成短链接为post请求外，其他均为get请求</li>
+ </ul>
+  <button type="button" onclick="createShortUrl()">生成短链接</button><input id="input_url" type="text"  value="http://" style="width: 50%" />
+  <div id="show_url"></div>
+
+ <h3>接口一览,说明</h3>
+ <table border="1">
+   <thead>
+    <th>接口</th>
+    <th>说明</th>
+    <th>参数1</th>
+    <th>参数2</th>
+   </thead>
+   <tbody>
+   <tr>
+     <td>get /:key</td>
+     <td>通过key访问原始url</td>
+     <td>key => 短链接的key</td>
+     <td></td>
+   </tr>
+   <tr>
+     <td>get /u</td>
+     <td>获取以有的短链列表</td>
+     <td>page => 显示页数，可选，默认1</td>
+     <td>per  => 每页数量，可选，默认10</td>
+   </tr>
+   <tr>
+     <td>post /u</td>
+     <td>新增加一个短链接</td>
+     <td>url => 原始url，必填，必须以http或https开头</td>
+     <td>set_short_url  => 设置指定的key，可选，key的长度1～8，并不包含w,x,y,z</td>
+   </tr>
+   <tr>
+     <td>get /u/:key/info</td>
+     <td>查看指定key的信息</td>
+     <td>key => 短链接的编码， 必填</td>
+     <td></td>
+   </tr>
+   </tbody>
+ </table>
+<h3>配置文件说明 --> config/application.yml</h3>
+ <table border="1">
+   <thead>
+   <th>key</th>
+   <th>说明</th>
+   </thead>
+   <tbody>
+   <tr>
+     <td>key_host</td>
+     <td>默认生成的短链接的域名部分</td>
+   </tr>
+   <tr>
+     <td>key_length</td>
+     <td>默认生成的短链接的链接长度</td>
+   </tr>
+   <tr>
+     <td>can_cover</td>
+     <td>自定义设置key时，是否能覆盖以有的key</td>
+   </tr>
+   </tbody>
+ </table>
+</body>
+<script type="application/javascript">
+    function createShortUrl(){
+      var val = $('#input_url').val();
+      if(!val){
+        alert("需要输入http或https开头的链接")
+        return false;
+      }
+      $.ajax({
+        type: 'POST',
+        url: '/u',
+        data: {
+          url: val
+        },
+        dataType: "json",
+        success: function(res){
+          $("#show_url").html("短链接为 <a href=' " + res.short_url + "'>" + res.short_url + "</a>")
+
+        },
+        error: function(xhr) {
+          alert($.parseJSON(xhr.responseText).error);
+        },
+
+      })
+    }
+</script>
+</html>

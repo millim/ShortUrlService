@@ -1,0 +1,14 @@
+
+defaults: &defaults
+  clients:
+      default:
+        database:
+        hosts:
+  options:
+      use_utc: true
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
