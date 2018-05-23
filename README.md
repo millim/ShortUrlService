@@ -12,4 +12,7 @@ bundle install
 puma
 ```
 
-然后浏览器中访问[http://localhost:9292](http://localhost:9292)
+然后浏览器中访问[http://localhost:9292](http://localhost:9292)（包含接口说明和生成规则）
+
+
+
