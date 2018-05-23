@@ -14,9 +14,4 @@ class HomeApi < Grape::API
     url.nil? ? error!('Not Found', 404) : redirect(url)
   end
 
-  desc '跳转到html'
-  get '/' do
-    redirect('/views/index.html')
-  end
-
 end
