@@ -1,17 +1,23 @@
-#正常情况，git下来的东西应该只有模版内容，再次直接一起传了
 development:
   clients:
       default:
-        database: xigua_demo
+        database: millim_short_url
         hosts:
           - localhost:27017
   options:
     use_utc: true
-
+production:
+  clients:
+      default:
+        database: millim_short_url_production
+        hosts:
+          - localhost:27017
+  options:
+    use_utc: true
 test:
   clients:
       default:
-        database: xigua_demo_test
+        database: millim_short_url_test
         hosts:
           - localhost:27017
   options:

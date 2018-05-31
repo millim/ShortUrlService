@@ -18,6 +18,7 @@ CONFIG_YML = YAML.load_file("#{File.dirname(__FILE__)}/application.yml")
 KEY_LENGTH = CONFIG_YML['key_length']
 KEY_HOST   = CONFIG_YML['key_host']
 CAN_COVER  = CONFIG_YML['can_cover']
+BLANK_KEY_URL  = CONFIG_YML['blank_key_url']
 
 addDirsToLoadPath   '../models','../api', '../run'
 
